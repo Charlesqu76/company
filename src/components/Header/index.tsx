@@ -20,7 +20,7 @@ const Header = (param: { data: any }) => {
     {
       label: "产品展示",
       key: "production",
-      children: data.map((v: { t: string; t_eng: string }) => {
+      children: data?.map((v: { t: string; t_eng: string }) => {
         const { t = "", t_eng = "" } = v || {};
         return { key: t_eng, label: t };
       }),
