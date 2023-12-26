@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { postData } from " /util";
+import { postData } from "../../../util";
 import "./index.scss";
 
 const Item = async (ctx: any) => {

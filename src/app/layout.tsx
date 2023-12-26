@@ -1,5 +1,5 @@
-import Header from " /components/Header";
-import { postData } from " /util";
+import Header from "../components/Header";
+import { postData } from "../util";
 import StyledComponentsRegistry from "../AntdRegistry";
 import "./globals.css";
 

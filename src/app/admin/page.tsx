@@ -1,5 +1,5 @@
 "use client";
-import { postData } from " /util";
+import { postData } from "../../util";
 import {
   Button,
   Tabs,

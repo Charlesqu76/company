@@ -1,4 +1,4 @@
-import { postData } from " /util";
+import { postData } from "../../../util";
 import Link from "next/link";
 import "./index.scss";
 import Image from "next/image";
