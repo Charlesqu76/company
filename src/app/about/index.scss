@@ -1,0 +1,50 @@
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &-title {
+      display: inline-block;
+      height: 52px;
+      line-height: 52px;
+      padding: 0 32px;
+      position: relative;
+      font-size: 40px;
+      color: #222222;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      &::before,
+      &::after {
+        width: 18px;
+        height: 1px;
+        background: #000000;
+        content: "";
+        position: absolute;
+        top: 26px;
+      }
+      &::before {
+        left: 0;
+      }
+      &::after {
+        right: 0;
+      }
+    }
+  }
+  &__con {
+    margin-top: 20px;
+    max-width: 1200px;
+    padding: 0 20px;
+    &-text {
+      font-size: 16px;
+      color: #4c4c4c;
+      text-align: justify;
+      margin-bottom: 12px;
+
+    }
+  }
+}

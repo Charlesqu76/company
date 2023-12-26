@@ -1,0 +1,33 @@
+.header__con {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  width: 100%;
+  margin-bottom: 50px;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+  &-con {
+    width: 100%;
+    max-width: 1140px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    &-img {
+      width: 80px;
+      height: 80px;
+      position: relative;
+    }
+  }
+  :where(.css-dev-only-do-not-override-zcfrx9).ant-menu-light,
+  :where(.css-dev-only-do-not-override-zcfrx9).ant-menu-light > .ant-menu {
+    background-color: transparent;
+  }
+  :where(.css-dev-only-do-not-override-zcfrx9).ant-menu-horizontal {
+    border-bottom: none;
+  }
+  .ant-menu-title-content {
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
