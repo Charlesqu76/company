@@ -1,5 +1,5 @@
 export async function postData(url = "", data = {}, isServer = false) {
-  const host = isServer ? "http://127.0.0.1:3002" : "/api";
+  const host = isServer ? "http://43.143.254.158" : "/api";
   const realUrl = host + `/${url}`;
   let d = {};
   try {
@@ -18,7 +18,7 @@ export async function postData(url = "", data = {}, isServer = false) {
       body: JSON.stringify(data), // body data type must match "Content-Type" header
     }).catch();
     d = response.json();
-  } catch {}
+  } catch (e) {}
 
-  return d as any;  // parses JSON response into native JavaScript objects
+  return d as any; // parses JSON response into native JavaScript objects
 }
