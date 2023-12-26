@@ -1,5 +1,5 @@
 export async function postData(url = "", data = {}, isServer = false) {
-  const host = isServer ? "http://127.0.0.1:3001" : "/api";
+  const host = isServer ? "http://127.0.0.1:3002" : "/api";
   const realUrl = host + `/${url}`;
   let d = {};
   try {
