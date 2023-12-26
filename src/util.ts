@@ -1,5 +1,5 @@
 export async function postData(url = "", data = {}, isServer = false) {
-  const host = isServer ? "http://43.143.254.158" : "/api";
+  const host = isServer ? "http://43.143.254.158/api" : "/api";
   const realUrl = host + `/${url}`;
   let d = {};
   try {
@@ -17,8 +17,10 @@ export async function postData(url = "", data = {}, isServer = false) {
       referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify(data), // body data type must match "Content-Type" header
     }).catch();
-    d = response.json();
-  } catch (e) {}
+    d = await response.json();
+  } catch (e) {
+    console.log(e);
+  }
 
   return d as any; // parses JSON response into native JavaScript objects
 }
