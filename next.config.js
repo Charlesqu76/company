@@ -2,6 +2,7 @@
 
 module.exports = {
   reactStrictMode: false,
+  output: "standalone",
 
   async redirects() {
     return [
