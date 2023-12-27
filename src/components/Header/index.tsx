@@ -1,7 +1,9 @@
 import { Menu } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import { ScrollScript } from "../ScrollScript";
 import "./index.scss";
+
 
 const Header = (param: { data: any; pathName: string }) => {
   const { data, pathName } = param;
@@ -48,8 +50,9 @@ const Header = (param: { data: any; pathName: string }) => {
       key: "contact",
     },
   ];
+
   return (
-    <div className="header__con">
+    <div className="header__con" id="header__con">
       <div className="header__con-con">
         {/* <Link href={"/home"} replace> */}
         <div className="header__con-con-img">
@@ -64,6 +67,7 @@ const Header = (param: { data: any; pathName: string }) => {
         </div>
         {/* </Link> */}
         <Menu defaultSelectedKeys={[p]} mode="horizontal" items={items} />
+        <ScrollScript />
       </div>
     </div>
   );
