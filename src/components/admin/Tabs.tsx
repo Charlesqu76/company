@@ -21,7 +21,7 @@ type TItem2 = typeof defaultItem2;
 
 export const MyTabs = (params: { data: Array<TItem> }) => {
   const { data = [] } = params;
-  const [activeKey, setActiveKey] = useState(data?.[0].key);
+  const [activeKey, setActiveKey] = useState(data?.[0]?.key);
   const [items, setItems] = useState(data);
   const [addItem, setAddItem] = useState(defaultItem2);
   const [open, setOpen] = useState(false);
