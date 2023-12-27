@@ -1,7 +1,7 @@
 import { postData } from "../../../util";
 import Link from "next/link";
-import "./index.scss";
 import Image from "next/image";
+import "./index.scss";
 
 const d = {
   name: "asdfasdf",
@@ -40,7 +40,6 @@ const Production = async (ctx: any) => {
     postData("gettypes", {}, true),
     postData("getProducts", { t_eng: detail }, true),
   ]);
-  console.log(types, console.log(detail));
   const { t = "" } =
     (types.data as Array<{ t: string; t_eng: string }>).find(
       (v) => v.t_eng === detail

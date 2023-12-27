@@ -22,11 +22,11 @@
       position: relative;
     }
   }
-  :where(.css-dev-only-do-not-override-zcfrx9).ant-menu-light,
-  :where(.css-dev-only-do-not-override-zcfrx9).ant-menu-light > .ant-menu {
-    background-color: transparent;
+  .ant-menu-light,
+  .ant-menu-light > .ant-menu {
+    background-color: transparent !important;
   }
-  :where(.css-dev-only-do-not-override-zcfrx9).ant-menu-horizontal {
+  .ant-menu-horizontal {
     border-bottom: none;
   }
   .ant-menu-overflow {

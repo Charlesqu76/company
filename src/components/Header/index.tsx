@@ -53,7 +53,14 @@ const Header = (param: { data: any; pathName: string }) => {
       <div className="header__con-con">
         {/* <Link href={"/home"} replace> */}
         <div className="header__con-con-img">
-          <Image src="/logo.png" alt="me" priority fill={true} />
+          <Image
+            src="http://43.143.254.158/image/logo.png"
+            alt="me"
+            priority
+            fill={true}
+            objectFit="contain"
+            objectPosition="contain"
+          />
         </div>
         {/* </Link> */}
         <Menu defaultSelectedKeys={[p]} mode="horizontal" items={items} />
