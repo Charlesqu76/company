@@ -3,7 +3,10 @@
 module.exports = {
   reactStrictMode: false,
   output: "standalone",
-
+  i18n: {
+    defaultLocale: "zh", // 默认语言
+    locales: ["en", "zh"], // 语言变量
+  },
   async redirects() {
     return [
       {
