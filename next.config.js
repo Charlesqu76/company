@@ -27,7 +27,7 @@ module.exports = {
     return [
       {
         source: "/api/:slug*",
-        destination: `http://127.0.0.1:3002/:slug*`,
+        destination: `http://43.143.254.158/api/:slug*`,
       },
     ];
   },

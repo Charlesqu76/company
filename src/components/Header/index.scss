@@ -1,4 +1,7 @@
 .header__con {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,8 +29,7 @@
   :where(.css-dev-only-do-not-override-zcfrx9).ant-menu-horizontal {
     border-bottom: none;
   }
-  .ant-menu-title-content {
-    font-size: 18px;
-    font-weight: 500;
+  .ant-menu-overflow {
+    display: flex;
   }
 }

@@ -32,7 +32,6 @@ a {
 }
 a:hover {
   color: #cd0200;
-  text-decoration: underline;
 }
 em {
   font-style: normal;

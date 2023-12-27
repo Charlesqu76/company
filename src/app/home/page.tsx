@@ -12,6 +12,8 @@ export default function Home() {
             alt="me"
             priority
             fill={true}
+            objectFit="cover"
+            objectPosition="contain"
           />
         </div>
       </Carousel>

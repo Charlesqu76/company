@@ -1,20 +1,27 @@
-"use client";
-import { useState } from "react";
 import { Menu } from "antd";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import "./index.scss";
 
-const Header = (param: { data: any }) => {
-  const { data } = param;
-  const [currectKey, setCurrectKey] = useState("home");
+const Header = (param: { data: any; pathName: string }) => {
+  const { data, pathName } = param;
+  const pathList = pathName.split("/").filter((v) => v);
+  const p = pathList[0];
   const items = [
     {
-      label: "首页",
+      label: (
+        <Link href={"/home"}>
+          <p>首页</p>
+        </Link>
+      ),
       key: "home",
     },
     {
-      label: "公司介绍",
+      label: (
+        <Link href={"/about"}>
+          <p>公司介绍</p>
+        </Link>
+      ),
       key: "about",
     },
     {
@@ -22,32 +29,34 @@ const Header = (param: { data: any }) => {
       key: "production",
       children: data?.map((v: { t: string; t_eng: string }) => {
         const { t = "", t_eng = "" } = v || {};
-        return { key: t_eng, label: t };
+        return {
+          key: t_eng,
+          label: (
+            <Link href={`/production/${t_eng}`}>
+              <p>{t}</p>
+            </Link>
+          ),
+        };
       }),
     },
     {
-      label: "联系我们",
+      label: (
+        <Link href={"/contact"}>
+          <p>联系我们</p>
+        </Link>
+      ),
       key: "contact",
     },
   ];
-  const router = useRouter();
-  const handleClickItem = (e: any) => {
-    const { key, keyPath } = e || {};
-    key && setCurrectKey(key);
-    router.push(`/${keyPath.reverse().join("/")}`);
-  };
   return (
     <div className="header__con">
       <div className="header__con-con">
+        {/* <Link href={"/home"} replace> */}
         <div className="header__con-con-img">
           <Image src="/logo.png" alt="me" priority fill={true} />
         </div>
-        <Menu
-          onClick={handleClickItem}
-          selectedKeys={[currectKey]}
-          mode="horizontal"
-          items={items}
-        />
+        {/* </Link> */}
+        <Menu defaultSelectedKeys={[p]} mode="horizontal" items={items} />
       </div>
     </div>
   );

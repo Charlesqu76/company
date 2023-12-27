@@ -19,7 +19,14 @@ const Item = (data: TData) => {
     <Link href={`/item/${data.name_eng}?category=${t_eng}`}>
       <div className="production__item">
         <div className="production__item-img">
-          <Image src={image} fill alt={`${name} `} />
+          <Image
+            src={image}
+            fill
+            alt={name}
+            priority
+            objectFit="contain"
+            objectPosition="contain"
+          />
         </div>
         <p className="production__item-text">{name}</p>
       </div>
@@ -33,6 +40,7 @@ const Production = async (ctx: any) => {
     postData("gettypes", {}, true),
     postData("getProducts", { t_eng: detail }, true),
   ]);
+  console.log(types, console.log(detail));
   const { t = "" } =
     (types.data as Array<{ t: string; t_eng: string }>).find(
       (v) => v.t_eng === detail

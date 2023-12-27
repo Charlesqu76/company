@@ -20,7 +20,14 @@ const Item = async (ctx: any) => {
       </div>
       <section className="item__con">
         <div className="item__con-img">
-          <Image src={image} alt="" fill />
+          <Image
+            src={image}
+            alt=""
+            fill
+            priority
+            objectFit="contain"
+            objectPosition="cover"
+          />
         </div>
         <div className="item__con-param">
           <p className="item__con-param-title">技术参数</p>
