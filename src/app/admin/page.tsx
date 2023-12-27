@@ -1,7 +1,7 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
 import "./index.scss";
-import { postData } from " /util";
-import { MyTabs } from " /components/admin/Tabs";
+import { postData } from "../../util";
+import { MyTabs } from "../../components/admin/Tabs";
 
 const Admin = async () => {
   const { data = [] } = await postData("gettypes", {}, true);
