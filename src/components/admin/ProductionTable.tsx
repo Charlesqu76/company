@@ -5,25 +5,34 @@ import Button from "antd/es/button";
 import Popconfirm from "antd/es/popconfirm";
 import Table from "antd/es/table";
 import { useEffect, useState } from "react";
-import { Input } from "antd";
-import TextArea from "antd/es/input/TextArea";
+import { Input, Form } from "antd";
+// import TextArea from "antd/es/input/TextArea";
 
 const defaultItemV = {
   name: "",
   name_eng: "",
   image: "",
-  parameter: "",
   introduction: "",
 };
+
+enum EStatus {
+  VIEW = "VIEW",
+  ADD = "ADD",
+  EDIT = "EDIT",
+}
 
 export const ProductionTable = (param: { activeKey: string }) => {
   const [dataSource, setDataSource] = useState(
     [] as Array<typeof defaultItemV>
   );
-
-  const [rowData, setRowData] = useState(defaultItemV);
+  const [form] = Form.useForm();
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
+
+  useEffect(() => {
+    setTableData();
+  }, [param.activeKey]);
 
   const defaultColumns = [
     {
@@ -37,41 +46,37 @@ export const ProductionTable = (param: { activeKey: string }) => {
     {
       title: "image",
       dataIndex: "image",
+      ellipsis: true,
     },
     {
       title: "introduction",
       dataIndex: "introduction",
+      ellipsis: true,
     },
     {
       title: "operation",
       dataIndex: "operation",
       render: (_: any, record: any) =>
         dataSource.length >= 1 ? (
-          <Popconfirm
-            title="Sure to delete?"
-            onConfirm={() => handleDelete(record as any)}
-          >
-            <Button>删除</Button>
-          </Popconfirm>
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            <div style={{ marginRight: "5px", marginBottom: "5px" }}>
+              <Button onClick={() => handleView(record)}>预览</Button>
+            </div>
+            <div style={{ marginRight: "5px", marginBottom: "5px" }}>
+              <Button onClick={() => handleEdit(record)}>修改</Button>
+            </div>
+            <div style={{ marginRight: "0px", marginBottom: "5px" }}>
+              <Popconfirm
+                title="Sure to delete?"
+                onConfirm={() => handleDelete(record as any)}
+              >
+                <Button>删除</Button>
+              </Popconfirm>
+            </div>
+          </div>
         ) : null,
     },
   ];
-
-  const handleDelete = async (data: typeof defaultItemV) => {
-    await postData("delProducts", {
-      name_eng: data.name_eng,
-      t_eng: param.activeKey,
-    });
-    setTableData();
-  };
-
-  const handleAdd = () => {
-    setShowModal(true);
-  };
-
-  useEffect(() => {
-    setTableData();
-  }, [param.activeKey]);
 
   const setTableData = async () => {
     try {
@@ -85,15 +90,52 @@ export const ProductionTable = (param: { activeKey: string }) => {
     }
   };
 
-  const handleModalOk = async () => {
-    const { name } = rowData;
-    const a = await postData("addProducts", {
-      ...rowData,
+  // 添加
+  const handleAdd = () => {
+    setStatus(EStatus.ADD);
+    setShowModal(true);
+  };
+
+  // 修改
+  const handleEdit = (data: any) => {
+    setStatus(EStatus.EDIT);
+    form.setFieldsValue(data);
+    setShowModal(true);
+  };
+
+  // 预览
+  const handleView = (data: any) => {
+    setStatus(EStatus.VIEW);
+    form.setFieldsValue(data);
+    setShowModal(true);
+  };
+
+  // 删除
+  const handleDelete = async (data: typeof defaultItemV) => {
+    await postData("delProducts", {
+      name_eng: data.name_eng,
+      t_eng: param.activeKey,
+    });
+    setTableData();
+  };
+
+  const onFinish = async (values: any) => {
+    if (status === EStatus.VIEW) return;
+    if (status === EStatus.EDIT) {
+      await postData("delProducts", {
+        name_eng: values.name_eng,
+        t_eng: param.activeKey,
+      });
+    }
+    await postData("addProducts", {
+      ...values,
       t_eng: param.activeKey,
     });
     setShowModal(false);
     setTableData();
   };
+
+  const title = status === EStatus.ADD ? "添加" : "预览";
 
   return (
     <div>
@@ -101,7 +143,6 @@ export const ProductionTable = (param: { activeKey: string }) => {
         添加型号
       </Button>
       <Table
-        rowClassName={() => "editable-row"}
         bordered
         dataSource={dataSource}
         columns={defaultColumns}
@@ -109,45 +150,49 @@ export const ProductionTable = (param: { activeKey: string }) => {
       />
       <Modal
         open={showModal}
-        title="添加型号"
-        onOk={handleModalOk}
+        title={title}
         onCancel={() => setShowModal(false)}
         afterClose={() => {
-          setRowData(defaultItemV);
+          form.resetFields();
         }}
+        footer={null}
+        maskClosable={false}
       >
-        <div>
-          <label>型号</label>
-          <Input
-            value={rowData.name}
-            onChange={(e) => setRowData({ ...rowData, name: e.target.value })}
-          ></Input>
-        </div>
-        <div>
-          <label>型号英文</label>
-          <Input
-            value={rowData.name_eng}
-            onChange={(e) =>
-              setRowData({ ...rowData, name_eng: e.target.value })
-            }
-          ></Input>
-        </div>
-        <div>
-          <label>图片</label>
-          <Input
-            value={rowData.image}
-            onChange={(e) => setRowData({ ...rowData, image: e.target.value })}
-          ></Input>
-        </div>
-        <div>
-          <label>描述</label>
-          <TextArea
-            value={rowData.introduction}
-            onChange={(e) =>
-              setRowData({ ...rowData, introduction: e.target.value })
-            }
-          ></TextArea>
-        </div>
+        <Form
+          layout="vertical"
+          disabled={status === EStatus.VIEW}
+          onFinish={onFinish}
+          form={form}
+          autoComplete="off"
+        >
+          <Form.Item
+            label="型号"
+            name={"name"}
+            rules={[{ required: true, message: "填写型号" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="型号英文"
+            name={"name_eng"}
+            rules={[{ required: true, message: "填写型号英文" }]}
+          >
+            <Input
+              disabled={status === EStatus.EDIT || status === EStatus.VIEW}
+            />
+          </Form.Item>
+          <Form.Item label="图片" name={"image"} initialValue={""}>
+            <Input />
+          </Form.Item>
+          <Form.Item label="描述" name={"introduction"} initialValue={""}>
+            <Input.TextArea autoSize={{ minRows: 2, maxRows: 6 }} />
+          </Form.Item>
+          <Form.Item wrapperCol={{ offset: 20, span: 24 }}>
+            <Button type="primary" htmlType="submit">
+              提交
+            </Button>
+          </Form.Item>
+        </Form>
       </Modal>
     </div>
   );

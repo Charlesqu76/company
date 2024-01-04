@@ -10,14 +10,12 @@ import {
   Modal,
   message,
 } from "antd";
-import TextArea from "antd/es/input/TextArea";
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 import React, { useState, useEffect } from "react";
 import { ProductionTable } from "./ProductionTable";
 const defaultItem = { key: "", label: "" };
 type TItem = typeof defaultItem;
 const defaultItem2 = { t: "", t_eng: "" };
-type TItem2 = typeof defaultItem2;
 
 export const MyTabs = (params: { data: Array<TItem> }) => {
   const { data = [] } = params;
@@ -45,6 +43,8 @@ export const MyTabs = (params: { data: Array<TItem> }) => {
   };
 
   const remove = (targetKey: TargetKey) => {
+    const c = confirm("确认删除吗？");
+    if (!c) return;
     const targetIndex = items.findIndex((pane) => pane.key === targetKey);
     const newPanes = items.filter((pane) => pane.key !== targetKey);
     if (newPanes.length && targetKey === activeKey) {

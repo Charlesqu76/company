@@ -4,7 +4,6 @@ import Link from "next/link";
 import { ScrollScript } from "../ScrollScript";
 import "./index.scss";
 
-
 const Header = (param: { data: any; pathName: string }) => {
   const { data, pathName } = param;
   const pathList = pathName.split("/").filter((v) => v);
@@ -54,18 +53,15 @@ const Header = (param: { data: any; pathName: string }) => {
   return (
     <div className="header__con" id="header__con">
       <div className="header__con-con">
-        {/* <Link href={"/home"} replace> */}
         <div className="header__con-con-img">
           <Image
             src="http://43.143.254.158/image/logo.png"
-            alt="me"
-            priority
+            alt="logo"
             fill={true}
             objectFit="contain"
-            objectPosition="contain"
+            objectPosition="center"
           />
         </div>
-        {/* </Link> */}
         <Menu defaultSelectedKeys={[p]} mode="horizontal" items={items} />
         <ScrollScript />
       </div>
